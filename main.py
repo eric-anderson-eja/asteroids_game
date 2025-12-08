@@ -32,7 +32,7 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2)
 
-    while True:
+    while True: # main game loop
         log_state()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -43,6 +43,12 @@ def main():
                 log_event("player_hit")
                 print("Game over!")
                 sys.exit()
+
+            for shot in shots:
+                if ast.collides_with(shot):
+                    log_event("asteroid_shot")
+                    shot.kill()
+                    ast.kill()
         screen.fill("black")
 
         for d in drawable:
